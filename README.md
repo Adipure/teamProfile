@@ -173,6 +173,6 @@ https://adipure.github.io/teamProfile/
 
 * A video demonstrating the entirety of the app's functionality 
 
-
+https://youtu.be/3cNf9_xtlxU
 - - -
 © 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
