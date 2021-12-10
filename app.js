@@ -9,11 +9,96 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-
-
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+let teamMember = []
 
+const add = () => {
+ inquirer.prompt({
+   type: 'confirm',
+   name: 'add',
+   message: 'Add a New Employee' 
+})
+  .then(data => {
+   const team = []
+
+   if (data.add == true) {
+    createEmployee()
+   } else {
+    
+    render(teamMember)
+    
+   }
+  })
+}
+const createEmployee =() => {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'Type your employee name',
+    },
+    {
+      type: 'input',
+      name: 'id',
+      message: 'Type your employee id',
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'Type your employee email',
+    },
+    {
+      type: 'list',
+      name: 'role',
+      message: 'Pick a role for your employee',
+      choices: ['Intern', 'Engineer', 'Manager'],
+    }
+  ])
+  .then(data=>{
+  if (data.role === 'Intern'){
+    inquirer.prompt([
+      {
+        type:'input',
+        name:'school',
+        message: 'Where did the intern graduate from?'
+      }
+    ])
+    .then(intern=>{
+      const intern = new Intern(data.name, data.id, data.email, data.school)
+      teamMember.push(intern)
+      add()
+    })
+  }else if (data.role ==='Engineer'){
+    inquirer.prompt([
+    {
+      type:'input',
+      name:'github',
+      messege: 'What is the Engineer github Id?'
+    }  
+   ])
+   .then(engineer=>{
+     const engineer = new Engineer(data.name, data.id, data.email, data.github)
+     teamMember.push(engineer)
+     add()
+   })
+  }else if (data.role === 'Manager'){
+    inquirer.prompt([
+      {
+        type:'input',
+        name:'officeNumber',
+        message:'What is your manager office number?'
+      }
+    ]).then(manger => {
+      const manger = new Manager(data.name, data.id, data.email, data.officeNumber)
+      teamMember.push(manager)
+      add()
+    })
+  }
+
+  }).catch(err => console.log(err))
+}
+add()
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
