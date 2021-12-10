@@ -168,8 +168,11 @@ We would like you to have well over 200 commits by graduation, so commit early a
 You are required to submit the following:
 
 * The URL of the GitHub repository
+https://github.com/Adipure/teamProfile.git
+https://adipure.github.io/teamProfile/
 
 * A video demonstrating the entirety of the app's functionality 
+
 
 - - -
 © 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
