@@ -9,9 +9,10 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const Employee = require("./lib/Employee");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-let teamMember = []
+let teamMember = [];
 
 const add = () => {
  inquirer.prompt({
@@ -20,15 +21,19 @@ const add = () => {
    message: 'Add a New Employee' 
 })
   .then(data => {
-   const team = []
 
-   if (data.add == true) {
+   if (data.add === true) {
     createEmployee()
    } else {
+    fs.mkdir('output', {recursive: true}, (err=> {
+      if (err){
+        console.log(err)
+      }
+    }))
+    writeToFile('./output/team.html', render(teamMember))
     
-    render(teamMember)
-    
-   }
+   }  
+
   })
 }
 const createEmployee =() => {
@@ -65,9 +70,10 @@ const createEmployee =() => {
       }
     ])
     .then(intern=>{
-      const newIntern = new Intern(data.name, data.id, data.email, data.school)
-      teamMember.push(intern)
+      const newIntern = new Intern(data.name, data.id, data.email, intern.school)
+      teamMember.push(newIntern)
       add()
+      console.log(newIntern)
     })
   }else if (data.role ==='Engineer'){
     inquirer.prompt([
@@ -78,9 +84,10 @@ const createEmployee =() => {
     }  
    ])
    .then(engineer=>{
-     const newEngineer = new Engineer(data.name, data.id, data.email, data.github)
-     teamMember.push(engineer)
+     const newEngineer = new Engineer(data.name, data.id, data.email, engineer.github)
+     teamMember.push(newEngineer)
      add()
+     console.log(newEngineer)
    })
   }else if (data.role === 'Manager'){
     inquirer.prompt([
@@ -90,15 +97,25 @@ const createEmployee =() => {
         message:'What is your manager office number?'
       }
     ]).then(manager => {
-      const newManager = new Manager(data.name, data.id, data.email, data.officeNumber)
-      teamMember.push(manager)
+      const newManager = new Manager(data.name, data.id, data.email, manager.officeNumber)
+      teamMember.push(newManager)
       add()
+      console.log(newManager)
     })
   }
 
   }).catch(err => console.log(err))
 }
-add()
+
+function writeToFile(fileName,data) {
+  fs.writeFile(fileName, data, err =>{
+    if(err){
+      return console.log(err)
+    }
+    console.log("Your teamProfile has been Generated.")
+  })
+}
+add();
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
