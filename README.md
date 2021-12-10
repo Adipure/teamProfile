@@ -170,6 +170,7 @@ You are required to submit the following:
 * The URL of the GitHub repository
 https://github.com/Adipure/teamProfile.git
 https://adipure.github.io/teamProfile/
+![image](https://user-images.githubusercontent.com/88735341/145529224-c46344ca-b050-4bcb-9c75-b71d4870ca7b.png)
 
 * A video demonstrating the entirety of the app's functionality 
 
