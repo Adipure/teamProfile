@@ -65,7 +65,7 @@ const createEmployee =() => {
       }
     ])
     .then(intern=>{
-      const intern = new Intern(data.name, data.id, data.email, data.school)
+      const newIntern = new Intern(data.name, data.id, data.email, data.school)
       teamMember.push(intern)
       add()
     })
@@ -78,7 +78,7 @@ const createEmployee =() => {
     }  
    ])
    .then(engineer=>{
-     const engineer = new Engineer(data.name, data.id, data.email, data.github)
+     const newEngineer = new Engineer(data.name, data.id, data.email, data.github)
      teamMember.push(engineer)
      add()
    })
@@ -89,8 +89,8 @@ const createEmployee =() => {
         name:'officeNumber',
         message:'What is your manager office number?'
       }
-    ]).then(manger => {
-      const manger = new Manager(data.name, data.id, data.email, data.officeNumber)
+    ]).then(manager => {
+      const newManager = new Manager(data.name, data.id, data.email, data.officeNumber)
       teamMember.push(manager)
       add()
     })
